@@ -6,11 +6,10 @@ from runner.koan import *
 # You need to write the triangle method in the file 'triangle.py'
 from .triangle import *
 
-
 def triangle(a, b, c):
     if a == b == c:
         return 'equilateral'
-    if a == b or b == c or c == a:
+    elif a == b or b == c or c == a:
         return 'isosceles'
     else:
         return 'scalene'
