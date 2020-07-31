@@ -13,16 +13,16 @@ class Triangle:
         self.b = b
         self.c = c
         self.sides = [self.a, self.b, self.c]
-        self.number_equal_sides = self.__number_of_equal_sides()
 
     def type(self):
         self.__invalid_sides()
-        if self.number_equal_sides == 1:
+        number_equal_sides = self.__number_of_equal_sides()
+        if number_equal_sides == 1:
             return 'equilateral'
-        elif self.number_equal_sides == 2:
+        elif number_equal_sides == 2:
             return 'isosceles'
         else:
-            return
+            return 'scalene'
 
     def __number_of_equal_sides(self):
         return len(set(self.sides))
