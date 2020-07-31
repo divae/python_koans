@@ -34,10 +34,8 @@ class Triangle:
             raise TriangleError("The sum of any two sides should be greater than the third one")
 
     def __side_less_than_one(self):
-        for side in self.sides:
-            if side < 1:
-                return True
-        return False
+        if True in [side < 1 for side in self.sides]:
+            return True
 
     def __sum_two_sides_less_than_the_other(self):
         if self.c > (self.a + self.b) or self.a > (self.b + self.c) or self.b > (self.a + self.c):
