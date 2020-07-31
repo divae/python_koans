@@ -46,8 +46,7 @@ class Triangle:
 
 
 def triangle(a, b, c):
-    triangle = Triangle(a, b, c)
-    return triangle.type()
+    return Triangle(a, b, c).type()
 
 
 class AboutTriangleProject2(Koan):
