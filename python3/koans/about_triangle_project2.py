@@ -7,31 +7,48 @@ from runner.koan import *
 from .triangle import *
 
 
+class Triangle:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+        self.sides = [self.a, self.b, self.c]
+        self.number_equal_sides = self.__number_of_equal_sides()
+
+    def type(self):
+        self.__invalid_sides()
+        if self.number_equal_sides == 1:
+            return 'equilateral'
+        elif self.number_equal_sides == 2:
+            return 'isosceles'
+        else:
+            return
+
+    def __number_of_equal_sides(self):
+        return len(set(self.sides))
+
+    def __invalid_sides(self):
+        if self.__side_less_than_one():
+            raise TriangleError("All sides should be greater than 0")
+        if self.__sum_two_sides_less_than_the_other():
+            raise TriangleError("The sum of any two sides should be greater than the third one")
+
+    def __side_less_than_one(self):
+        for side in self.sides:
+            if side < 1:
+                return True
+        return False
+
+    def __sum_two_sides_less_than_the_other(self):
+        if self.c > (self.a + self.b) or self.a > (self.b + self.c) or self.b > (self.a + self.c):
+            return True
+        return False
+
+
 def triangle(a, b, c):
-    if sides_less_than_one(a, b, c) or sum_of_any_two_sides_less_than_the_third(a, b, c):
-        raise TriangleError("My Message")
-    elif all_slides_equals(a, b, c):
-        return 'equilateral'
-    elif two_slides_equals(a, b, c):
-        return 'isosceles'
-    else:
-        return 'scalene'
+    triangle = Triangle(a, b, c)
+    return triangle.type()
 
-def all_slides_equals(a, b, c):
-    if a == b == c:
-        return True
-
-def two_slides_equals(a, b, c):
-    if a == b or b == c or c == a:
-        return True
-
-def sides_less_than_one(a, b, c):
-    if a < 1 or b < 1 or c < 1:
-        return True
-
-def sum_of_any_two_sides_less_than_the_third(a, b, c):
-    if ((a + b) > c) or ((b + c) > a) or ((c + a) > b):
-        return True
 
 class AboutTriangleProject2(Koan):
 
@@ -49,5 +66,3 @@ class AboutTriangleProject2(Koan):
             triangle(1, 1, 3)
         with self.assertRaises(TriangleError):
             triangle(2, 5, 2)
-
-

@@ -7,12 +7,14 @@ from runner.koan import *
 from .triangle import *
 
 def triangle(a, b, c):
-    if a == b == c:
+    number_slides = len(set([a, b, c]))
+    if number_slides == 1:
         return 'equilateral'
-    elif a == b or b == c or c == a:
+    elif number_slides == 2:
         return 'isosceles'
     else:
         return 'scalene'
+
 
 class AboutTriangleProject(Koan):
 
