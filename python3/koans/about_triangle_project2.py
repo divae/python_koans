@@ -9,10 +9,7 @@ from .triangle import *
 
 class Triangle:
     def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
-        self.sides = sorted([self.a, self.b, self.c])
+        self.sides = sorted([a, b, c])
 
     def type(self):
         self.__invalid_sides()
@@ -24,14 +21,14 @@ class Triangle:
         else:
             return 'scalene'
 
-    def __number_of_equal_sides(self):
-        return len(set(self.sides))
-
     def __invalid_sides(self):
         if self.__side_less_than_one():
             raise TriangleError("All sides should be greater than 0")
         if self.__sum_two_sides_less_than_the_other():
             raise TriangleError("The sum of any two sides should be greater than the third one")
+        
+    def __number_of_equal_sides(self):
+        return len(set(self.sides))
 
     def __side_less_than_one(self):
         return True in [side < 1 for side in self.sides]
