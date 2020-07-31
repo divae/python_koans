@@ -37,41 +37,39 @@ from runner.koan import *
 class Score:
     def __init__(self, dice):
         self.dice = {chuck: dice.count(chuck) for chuck in dice}
-        self.total_score = 0
 
     def get(self):
-        return self.total_score
-
-    def calculate(self):
+        total_score = 0
         for number, concurrences in self.dice.items():
             if self.__there_are_trio(concurrences):
                 if number == 1:
-                    self.total_score += self.__trio_ones()
+                    total_score += self.__trio_ones_value()
                 else:
-                    self.total_score += self.__trio(number)
+                    total_score += self.__trio_value(number)
                 concurrences -= 3
             if number == 1:
-                self.total_score += self.__one(concurrences)
+                total_score += self.__ones_value(concurrences)
             elif number == 5:
-                self.total_score += self.__five(concurrences)
+                total_score += self.__five_value(concurrences)
+        return total_score
 
     def __there_are_trio(self, concurrences):
         return concurrences >= 3
 
-    def __trio_ones(self):
+    def __trio_ones_value(self):
         return 1000
 
-    def __trio(self, number):
-        return number * 100
+    def __trio_value(self, number):
+        return 100 * number
 
-    def __one(concurrences):
+    def __ones_value(self, concurrences):
         return 100 * concurrences
 
-    def __five(concurrences):
+    def __five_value(self, concurrences):
         return 50 * concurrences
 
 def score(dice):
-    return Score.get(dice)
+    return Score(dice).get()
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
