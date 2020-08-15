@@ -13,10 +13,10 @@ class Triangle:
 
     def type(self):
         self.__invalid_sides()
-        number_equal_sides = self.__number_of_equal_sides()
-        if number_equal_sides == 1:
+        equal_sides = self.__get_equal_sides()
+        if self.__is_equilateral(equal_sides):
             return 'equilateral'
-        elif number_equal_sides == 2:
+        elif self.__is_isosceles(equal_sides):
             return 'isosceles'
         else:
             return 'scalene'
@@ -27,7 +27,7 @@ class Triangle:
         if self.__sum_two_sides_less_than_the_other():
             raise TriangleError("The sum of any two sides should be greater than the third one")
         
-    def __number_of_equal_sides(self):
+    def __get_equal_sides(self):
         return len(set(self.sides))
 
     def __side_less_than_one(self):
@@ -35,7 +35,12 @@ class Triangle:
 
     def __sum_two_sides_less_than_the_other(self):
         return self.sides[0] + self.sides[1] < self.sides[2]
-
+    
+    def __is_equilateral(self, equal_sides):
+        return equal_sides == 1
+    
+    def __is_isosceles(self, equal_sides):
+        return equal_sides == 2
 
 def triangle(a, b, c):
     return Triangle(a, b, c).type()
